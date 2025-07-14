@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package liveness;
+
+// Service untuk liveness detection
+service LivenessService {
+    // Prediksi liveness dari image bytes
+    rpc PredictLiveness(LivenessRequest) returns (LivenessResponse);
+    
+    // Get status model
+    rpc GetModelStatus(ModelStatusRequest) returns (ModelStatusResponse);
+}
+
+// Request untuk liveness prediction
+message LivenessRequest {
+    bytes image_data = 1;  // Image dalam format bytes
+    string image_format = 2;  // Format image (jpg, png, etc)
+}
+
+// Response untuk liveness prediction
+message LivenessResponse {
+    bool is_live = 1;
+    float confidence = 2;
+    string predicted_class = 3;
+    LivenessProbabilities probabilities = 4;
+    bool success = 5;
+    string error_message = 6;
+}
+
+// Probabilities untuk setiap class
+message LivenessProbabilities {
+    float fake = 1;
+    float live = 2;
+}
+
+// Request untuk model status
+message ModelStatusRequest {
+    // Empty request
+}
+
+// Response untuk model status
+message ModelStatusResponse {
+    string status = 1;
+    string model_name = 2;
+    string model_type = 3;
+    string local_path = 4;
+    bool is_loaded = 5;
+} 
