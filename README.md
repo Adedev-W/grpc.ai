@@ -81,7 +81,7 @@ python liveness_client.py --status
 python liveness_client.py --image path/to/image.jpg
 ```
 
-#### Contoh Output
+#### Output
 
 ```
 === Liveness Prediction Results ===
